@@ -5,57 +5,55 @@ excerpt: "Codility c언어 문제 풀이 2-1"
 categories:
   - Algorithm
 tags:
-  - [Algorithm, Codility, C, malloc]
+  - [Algorithm, Codility, C]
 
 toc: false
 toc_sticky: false
 
 date: 2020-06-06
-last_modified_at:
+last_modified_at: 2020-06-09
 ---
-Codility 두 번째 Lesson의 이름은 Arrays(배열)입니다. 배열은 많은 항목을 한 곳에 저장하는 데 사용할 수 있는 데이터 구조입니다. 대형마트에서 쇼핑을 한다고 할 때, 하나의 장바구니에 하나의 제품만을 보관하지 않는 것과 같습니다. 그렇지 않다면 10개의 제품을 구매하였을 때, 우리는 10개의 장바구니를 들고 다녀야 하는 상황이 발생하게 됩니다.
+# Lesson1 Arrays(배열)
+---
+ 배열은 많은 항목을 한 곳에 저장하는 데 사용할 수 있는 데이터 구조입니다.   
+ 예를 들어, 학생 100명의 수학 점수를 입력받아야 한다고 합시다. 수를 입력받기 위해서는 `int`형 100개를 선언할 필요가 있습니다. 배열을 사용한다면 한 번에 선언으로 100개의 데이터를 관리 할 수 있게 된다는 편리한 장점이 있습니다.
 
----
+<br>
+
 # 1. 문제
-
+---
 정수 N으로 구성된 배열 A를 K값 만큼 회전 시켜주면 되는 문제이다.   
-예를 들어, A = [3,8,9,7,6], K = 3 일 때, [9,7,6,3,8] 값을 리턴해주면 된다.
+>예시   
+A = [3,8,9,7,6], K = 3 일 때,   
+[9,7,6,3,8] 값을 반환해준다.
 
 <br>
 
-# 2. 풀이
-
-1. K = 3일 때, 한 번에 한 칸씩 3번을 이동하기보다, K값만큼 한 번에 이동한다.
-
-<br>
-
-# 3. 정답
+# 2. 정답
 ## 첫번째 - 87점
 {% highlight c linenos %}
 struct Results solution(int A[], int N, int K) {
     struct Results result;
     int cycle = K % N;
-    int* answer = (int*)malloc(sizeof(int) * N);
+    int* answer = (int*)malloc(sizeof(int) * N);    
 
-    result.N = N;
-
-    if (cycle == 0)
+    if (cycle == 0) {
         result.A = A;
-    else {
-        for (int i = 0; i < N; i++) 
-            answer[(i + cycle) % N] = A[i];        
+    } else {
+        for (int i = 0; i < N; i++) {
+            answer[(i + cycle) % N] = A[i]; 
+        }       
         result.A = answer;
     }
+    result.N = N;
+
     return result;
 }
 {% endhighlight %}
 
-- **3Line** - 이동 칸수를 결정하는 변수이다.
-- **4Line** - 정답을 입력할 배열을 `malloc`함수를 통하여 생성하였다. 이 함수의 인자는 데이터의 크기를 의미한다. `int`의 크기를 N만큼 할당해 주었다.
-- **8Line** - `cycle = 0`이면 이동이 없다는 뜻이다. A를 그대로 반환해주었다.
-- **12Line** - `cycle`값만큼의 이동을 해주는 코드이다. A의 배열 크기보다 커지면 0 값으로 이동한다.
+회전 횟수를 입력받을 `cycle` 변수를 선언하여 회전횟수인 `K`값에 배열 A의 길이인 `N`값을 나눠 주었다. 배열의 길이와 회전 횟수가 같으면 배열 A와 같은 값이 반환하면 되고, 배열의 길이가 5라고 가정할 때, 3, 8, 13번의 회전은 같은 값을 반환해야 하기 때문에 `cycle`변수를 사용하려고 하였다.   
 
-잘못된 부분 : 배열에 빈값이 들어왔을 때 `RUNTIME ERROR`가 발생하였다.
+잘못된 부분 : `N = 0`이 되면 `cycle`계산 시 분모가 0이 되어 `RUNTIME ERROR`가 발생하였다.
 
 <br>
 
@@ -63,24 +61,26 @@ struct Results solution(int A[], int N, int K) {
 {% highlight c linenos %}
 struct Results solution(int A[], int N, int K) {
     struct Results result;
-    int* temp = (int*)malloc(sizeof(int)*N);
-
-    result.N = N;
+    int* answer = (int*)malloc(sizeof(int)*N);    
 
     if (N == 0){
         result.A = A;
-    }
-    else {
+    } else {
         for (int i = 0; i < N; i++) {
-            temp[(i + K) % N] = A[i];
+            answer[(i + K) % N] = A[i];
         }
-        result.A = temp;
+        result.A = answer;
     }
+    result.N = N;
+
     return result;
 }
 {% endhighlight %}
 
-N이 0일 때, 나머지를 구하게 되면 오류가 생겨서 `cycle`부분을 없애고, 7번 부분을 고쳐 주었다. 
+숫자를 회전 시키다 보면 배열의 크기를 넘어가 버리는 상황이 생기게 된다. 배열의 크기를 넘어가게 되면 다시 0번째 자리로 이동을 시켜주어야 하는데 다음의 식을 사용하였다
 
+>(i + K) % N
+
+옮기려는 자리`(i + K)`가 배열의 크기`N`보다 클 경우 `N`으로 나누어 다시 0부터 시작하게 한다.
 
 [맨 위로 이동하기](#){: .btn .btn--primary }{: .align-right}
