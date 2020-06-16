@@ -10,7 +10,7 @@ tags:
 toc: false
 toc_sticky: false
 
-date: 2020-06-11
+date: 2020-06-15
 last_modified_at:
 ---
 # 1. 문제
@@ -33,10 +33,11 @@ S = CAGCCTA, M = 3일 때,
 3. **S[0] ~ S[6] = <span style ="color:red">CAGCCTA</span> 답은 A = 1**   
 
 답은 [2, 5, 1]반환해야 한다.
+
 <br>
 
 # 2. 정답
-## 첫번째 - 62점
+## 첫번째 - 62점(다른사람 풀이)
 >시간 복잡도 : O(N*M)
 
 {% highlight c linenos %}
@@ -93,7 +94,7 @@ S = CAGCCTA, M = 3일 때,
 
 위의 방식대로 흘러가는 코딩을 했다. 역시 이중 반복문으로 인해 처리해야 할 데이터의 수가 많아지면 `TIMEOUT ERROR`가 발생하였다.
 
-## 첫번째 - 100점
+## 두번째 - 100점
 >시간 복잡도 : O(N+*M)
 
 {% highlight c linenos %}
