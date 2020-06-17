@@ -53,7 +53,7 @@ social:
 
 # Analytics
 analytics:
-  provider               : google-tag # false (default), "google", "google-universal", "custom"
+  provider               : google-gtag # false (default), "google", "google-universal", "custom"
   google:
     tracking_id          : "UA-168603182-1"
     anonymize_ip         : # true, false (default)
