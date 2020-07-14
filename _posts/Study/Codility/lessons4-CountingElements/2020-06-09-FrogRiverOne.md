@@ -3,10 +3,10 @@ title:  "[Codility] Lesson4. Counting Elements-FrogRiverOne C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 4-1"
 
 categories:
-  - Algorithm
+  - Study
 tags:
-  - [Algorithm, Codility, C]
-
+  - [Codility, C]
+ 
 toc: false
 toc_sticky: false
 

@@ -1,13 +1,12 @@
 ---
-title:  "[Codility] Lesson5. Counting Elements-MinAvgTwoSlice
- C언어 풀이" 
+title:  "[Codility] Lesson5. PrefixSums-MinAvgTwoSlice C언어 풀이" 
 excerpt: "Codility c언어 문제 풀이 5-3"
 
 categories:
-  - Algorithm
+  - Study
 tags:
-  - [Algorithm, Codility, C]
-
+  - [Codility, C]
+ 
 toc: false
 toc_sticky: false
 

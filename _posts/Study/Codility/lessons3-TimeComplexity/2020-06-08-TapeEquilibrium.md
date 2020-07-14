@@ -3,10 +3,10 @@ title:  "[Codility] Lesson3. TimeComplexity-TapeEquilibrium C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 3-3"
 
 categories:
-  - Algorithm
+  - Study
 tags:
-  - [Algorithm, Codility, C]
-
+  - [Codility, C]
+ 
 toc: false
 toc_sticky: false
 

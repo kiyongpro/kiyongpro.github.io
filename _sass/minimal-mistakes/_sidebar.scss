@@ -18,7 +18,6 @@
 
   @include breakpoint($large) {
     float: left;
-    position: fixed;
     width: calc(#{$right-sidebar-width-narrow} - 1em);
     opacity: 0.75;
     -webkit-transition: opacity 0.2s ease-in-out;
@@ -42,7 +41,7 @@
   }
 
   > * {
-    margin-top: 5em;
+    margin-top: 1em;
     margin-bottom: 1em;
   }
 
