@@ -10,19 +10,19 @@ toc: true
 toc_sticky: true
 
 date: 2020-07-13
-last_modified_at:
+last_modified_at: 2020-07-16
 ---
 # 이론
 ## A* 알고리즘 이란?
 
-A* 알고리즘 (AStar Algorithm, 에이 스타 알고리즘)은 주어진 출발지에서, 목적지까지 가는 **최단 경로**를 찾아내기 위해 고안된 그래프 탐색 알조리즘 중 하나이다.   
-이는 최단의 경로를 탐색하기 위하여 휴리스틱 추정값($h(n)$)을 매기는 방법을 사용한다.
+&nbsp; A* 알고리즘 (AStar Algorithm, 에이 스타 알고리즘)은 주어진 출발지에서, 목적지까지 가는 **최단 경로**를 찾아내기 위해 고안된 그래프 탐색 알조리즘 중 하나이다.   
+최단의 경로를 탐색하기 위하여 휴리스틱 추정값($h(n)$)을 매기는 방법을 사용한다.
 
 
 $f(n) = g(n) + h(n)$
 
 - $g(n)$ : 출발지점으로부터 $n$까지의 경로값
-- $h(n)$ : $n$부터 목적지점까지의 경로값
+- $h(n)$ : $n부터 목적지점까지의 경로값
 
 ## A* 알고리즘 방식
 
@@ -62,7 +62,7 @@ A가 현재의 노드일 때, 주변 8칸의 이웃(neighbour)하는 노드가 �
 <summary>그림 설명 접기/펼치기</summary>
 <div markdown="1">
 
-> A에서 B로 이동하기 위한 상황. 검은 물체는 이동불가능한 노드.
+> A에서 B로 이동하기 위한 상황. 검은색 노드는 이동이 불가능함.
 <center><img src="https://user-images.githubusercontent.com/33146320/87407916-c32b1600-c5fd-11ea-9a17-0602cc3713c0.png" width= "50%" height="50%"></center>
 
 - OPEN = (+d2)
@@ -103,7 +103,7 @@ A가 현재의 노드일 때, 주변 8칸의 이웃(neighbour)하는 노드가 �
 
 <br>
 
-# 구현
+# 구현(맵 생성)
 
 게임 제작 엔진인 Unity 3D 에서 구현을 해보려고 한다. 범위를 지정하여 노드를 생성하고 마우스를 활용하여 조작하는 프로그램을 만들 것이다. (버젼 : 2019.4.f1)
 
@@ -318,7 +318,8 @@ void Update()
         if (node != null)
         {
             if(node.start || node.end)
-                StartCoroutine("SwitchStartEnd", node); //반환받은 node가 Start, End 인지 확인
+                //반환받은 node가 Start, End 인지 확인
+                StartCoroutine("SwitchStartEnd", node); 
             else
                 StartCoroutine("ChangeWalkable", node);
         }
@@ -354,6 +355,197 @@ IEnumerator SwitchStartEnd(Node node)
 > 결과 화면
 
 ![2](https://user-images.githubusercontent.com/33146320/87450564-9c8ad080-c639-11ea-95d3-4f41141a112c.gif)
+
+<br>
+
+# 구현(알고리즘 적용)
+
+## 이론구현
+```cs
+void FindPath()
+{
+    List<Node> openSet = new List<Node>();          //OPEN
+    HashSet<Node> closedSet = new HashSet<Node>();  //CLOSE
+    openSet.Add(start);                             //OPEN에 시작노드 저장
+
+    while (openSet.Count > 0)
+    {
+        Node currentNode = openSet[0];
+        //OPEN에 fCOST가 가장 작은 노드를 찾기
+        for(int i = 1; i<openSet.Count; i++)
+        {
+            if (openSet[i].fCost < currentNode.fCost || openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost)
+            {
+                currentNode = openSet[i];
+            }
+        }
+
+        openSet.Remove(currentNode);
+        closedSet.Add(currentNode);
+
+        //도착지점에 오면 종료
+        if (currentNode == end)
+        {
+            return;
+        }
+
+        if (currentNode != start)
+            currentNode.ChangeColor = Color.Lerp(Color.cyan, Color.white, 0.2f);
+
+        //이웃 노드를 검색
+        foreach (Node neighbour in grid.GetNeighbours(currentNode))
+        {
+            //이동불가 노드 이거나 이미 검색한 노드 제외
+            if (!neighbour.walkable  || closedSet.Contains(neighbour))
+            {
+                continue;
+            }
+
+            int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+            if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+            {
+                neighbour.gCost = newMovementCostToNeighbour;
+                neighbour.hCost = GetDistance(neighbour, end);
+                neighbour.parent = currentNode;
+
+                if (!openSet.Contains(neighbour))
+                {
+                    openSet.Add(neighbour);
+                    if (neighbour.walkable && !neighbour.end)
+                        neighbour.ChangeColor = Color.Lerp(Color.green, Color.white, 0.2f);
+                }
+            }
+        }
+    }
+}
+
+//노드간의 거리 계산
+int GetDistance(Node nodeA, Node nodeB)
+    {
+        int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
+        int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
+
+        if (dstX > dstY)
+            return 14 * dstY + 10 * (dstX - dstY);
+        return 14 * dstX + 10 * (dstY - dstX);
+    }
+```
+> 거리 계산하는 법
+
+A와 B사이의 거리는 **14 * 2 + 10 * 3 = 58**이다.
+
+![그림1](https://user-images.githubusercontent.com/33146320/87543026-ee396680-c6de-11ea-9d0b-3e58aaa48e07.png)
+
+```cs
+public List<Node> GetNeighbours(Node node)
+{
+    List<Node> neighbours = new List<Node>();
+    int[,] temp = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+    bool[] walkableUDLR = new bool[4];
+
+    //상하좌우의 노드 먼저 계산
+    for (int i = 0; i < 4; i++)
+    {
+        int checkX = node.gridX + temp[i, 0];
+        int checkY = node.gridY + temp[i, 1];
+        if (checkX >= 0 && checkX < (int)gridWorldSize.x && checkY >= 0 && checkY < (int)gridWorldSize.y)
+        {
+            if (grid[checkX, checkY].walkable)
+                walkableUDLR[i] = true;
+            neighbours.Add(grid[checkX, checkY]);
+        }
+    }
+    //대각선의 노드를 계산
+    for (int i = 0; i < 4; i++)
+    {
+        if (walkableUDLR[i] || walkableUDLR[(i + 1) % 4])
+        {
+            int checkX = node.gridX + temp[i, 0] + temp[(i + 1) % 4, 0];
+            int checkY = node.gridY + temp[i, 1] + temp[(i + 1) % 4, 1];
+            if (checkX >= 0 && checkX < (int)gridWorldSize.x && checkY >= 0 && checkY < (int)gridWorldSize.y)
+            {
+                neighbours.Add(grid[checkX, checkY]);
+            }
+        }
+    }
+
+    return neighbours;
+}
+```
+
+![그림2](https://user-images.githubusercontent.com/33146320/87543544-e928e700-c6df-11ea-93a4-516af43b1272.png)
+
+상하좌우의 노드를 위 순서대로 계산한다.   
+(1번 노드는 A위치를 기준으로 y + 1을 해준다. 2번 x + 1, 3번 y - 1, 4번 x - 1)
+
+![그림3](https://user-images.githubusercontent.com/33146320/87544215-090cda80-c6e1-11ea-9633-20cea7f27952.png)
+
+1번과 2번의 노드가 이동불가능하다면 3시방향의 대각선 노드 또한 이동이 불가능해야한다.
+
+> 결과 화면
+
+<center><img src="https://user-images.githubusercontent.com/33146320/87544500-846e8c00-c6e1-11ea-9d1f-391cde994c9c.png"></center>
+
+연두색 = OPEN, 하늘색 = CLOSE
+
+## 웨이포인트 만들기
+
+```cs
+//도착지점 부터 출발지점까지 부모 노드를 입력하여 웨이포인트를 생성한다.
+Vector3[] RetracePath(Node startNode, Node endNode)
+{
+    List<Node> path = new List<Node>();
+    Node currentNode = endNode;
+
+    while (currentNode != startNode)
+    {
+        path.Add(currentNode);
+        currentNode = currentNode.parent;
+    }
+    Vector3[] waypoints = SimplifyPath(path);
+    Array.Reverse(waypoints);
+    return waypoints;
+}
+
+//반복되는 이동을 삭제해주며 웨이포인트를 간단하게 만든다.
+Vector3[] SimplifyPath(List<Node> path)
+{
+    List<Vector3> waypoints = new List<Vector3>();
+    Vector2 directionOld = Vector2.zero;
+
+    for (int i = 1; i < path.Count; i++)
+    {
+        Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
+        if (directionNew != directionOld)
+        {
+            waypoints.Add(path[i - 1].ground.transform.position + Vector3.up * 0.1f);
+        }
+        directionOld = directionNew;
+    }
+    waypoints.Add(start.ground.transform.position + Vector3.up * 0.1f);
+    return waypoints.ToArray();
+}
+```
+
+>결과 화면
+
+![3](https://user-images.githubusercontent.com/33146320/87549115-5b052e80-c6e8-11ea-83d9-59a7f580bdb9.gif)
+
+<br>
+
+# GUI만들기
+
+1. 맵의 크기 조절이 가능하게 하는 부분 (TextField 2개와 버튼 1개)
+2. 검색 시작 - 재 시작 버튼
+3. 검색 멈춤 - 검색 취소 버튼
+
+> 결과 화면
+
+![4](https://user-images.githubusercontent.com/33146320/87560602-9ad31280-c6f6-11ea-994a-1ea96c13155b.gif)
+
+<br>
+
+[깃허브 바로가기](https://github.com/kiyongpro/Unity3D_AStar)
 
 <br>
 
