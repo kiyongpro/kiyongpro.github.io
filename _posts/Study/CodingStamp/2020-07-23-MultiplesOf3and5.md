@@ -37,7 +37,7 @@ for(int i = 1; i < 1000; i++)
 1부터 1000까지 반복하면서 3또는 5의 배수가 나오면 sum에 더해주는 형식이다. 가장 간단하고 많은사람이 같은 방식으로 풀이를 하였다.
 
 ## 두번째
-{% highlight c linenos %}
+{% highlight cs linenos %}
 class Program
 {        
     static void Main(string[] args)
