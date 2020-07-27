@@ -29,15 +29,13 @@ last_modified_at:
 # 2. 풀이
 
 {% highlight cs linenos %}
-int d, result;
+int result = 4999 * 5000 / 2;
 
 bool[] generated = new bool[5000];
 
-result = 4999 * 5000 / 2;
-
 for (int n = 1; n < 5000; n++)
 {
-    d = n + (n / 1000) + (n / 100 % 10) + (n / 10 % 10) + (n % 10);
+    int d = n + (n / 1000) + (n / 100 % 10) + (n / 10 % 10) + (n % 10);
 
     if (d >= 5000) continue;                
     if (!generated[d])

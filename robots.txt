@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://kiyongpro.github.io/sitemap.xml
