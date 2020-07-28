@@ -4,7 +4,7 @@ title:  "길찾기 알고리즘(A* Algorithm) Unity3D로 구현하기"
 categories:
   - Algorithm
 tags:
-  - [Algorithm, AStar, PathFinding, 에이스타, 길찾기, 알고리즘]
+  - [Algorithm, AStar, PathFinding]
 
 toc: true
 toc_sticky: true

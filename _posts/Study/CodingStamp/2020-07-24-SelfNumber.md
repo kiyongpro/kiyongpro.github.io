@@ -4,7 +4,7 @@ title:  "[코딩도장] Self Number의 합 C#문제풀이"
 categories:
   - Study
 tags:
-  - [코딩도장, C#, CSharp]
+  - [코딩도장, C#]
  
 toc: false
 toc_sticky: false
