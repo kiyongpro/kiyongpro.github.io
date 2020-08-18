@@ -1,5 +1,5 @@
 ---
-title:  "길찾기 알고리즘(A* Algorithm) Unity3D로 구현하기" 
+title:  "A* Algorithm(길찾기 알고리즘) Unity3D로 구현하기" 
 
 categories:
   - Algorithm

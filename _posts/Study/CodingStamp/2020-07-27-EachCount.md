@@ -2,7 +2,7 @@
 title:  "[코딩도장] 1부터 1000까지 각 숫자의 합 C#문제풀이" 
 
 categories:
-  - Study
+  - 코딩도장
 tags:
   - [코딩도장, C#]
  

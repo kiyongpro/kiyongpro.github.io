@@ -2,7 +2,7 @@
 title:  "[코딩도장] Multiples of 3 and 5 C#문제풀이" 
 
 categories:
-  - Study
+  - 코딩도장
 tags:
   - [코딩도장, C#]
  

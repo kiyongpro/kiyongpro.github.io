@@ -3,7 +3,7 @@ title:  "[Codility] Lesson2. Arrays-CyclicRotation C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 2-1"
 
 categories:
-  - Study
+  - Codility
 tags:
   - [Codility, C] 
 

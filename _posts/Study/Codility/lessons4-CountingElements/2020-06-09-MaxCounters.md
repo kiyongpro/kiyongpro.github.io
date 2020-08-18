@@ -3,7 +3,7 @@ title:  "[Codility] Lesson4. Counting Elements-MaxCounters C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 4-2"
 
 categories:
-  - Study
+  - Codility
 tags:
   - [Codility, C]
  

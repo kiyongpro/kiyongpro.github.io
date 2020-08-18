@@ -3,7 +3,7 @@ title:  "[Codility] Lesson5. PrefixSums-PassingCars C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 5-4"
 
 categories:
-  - Study
+  - Codility
 tags:
   - [Codility, C]
  

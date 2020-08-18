@@ -3,7 +3,7 @@ title:  "[Codility] Lesson2. Arrays-OddOccurrenceslnArray C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 2-2"
 
 categories:
-  - Study
+  - Codility
 tags:
   - [Codility, C]
  

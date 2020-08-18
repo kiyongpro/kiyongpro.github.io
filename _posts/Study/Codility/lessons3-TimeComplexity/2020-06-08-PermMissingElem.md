@@ -3,7 +3,7 @@ title:  "[Codility] Lesson3. TimeComplexity-PermMissingElem C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 3-2"
 
 categories:
-  - Study
+  - Codility
 tags:
   - [Codility, C]
  

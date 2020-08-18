@@ -3,7 +3,7 @@ title:  "[Codility] Lesson5. PrefixSums-GenomicRangeQuery C언어 풀이"
 excerpt: "Codility c언어 문제 풀이 5-2"
 
 categories:
-  - Study
+  - Codility
 tags:
   - [Codility, C]
  
@@ -37,7 +37,7 @@ S = CAGCCTA, M = 3일 때,
 <br>
 
 # 2. 정답
-## 첫번째 - 62점(다른사람 풀이)
+## 첫번째 - 62점
 >시간 복잡도 : O(N*M)
 
 {% highlight c linenos %}
@@ -94,7 +94,7 @@ S = CAGCCTA, M = 3일 때,
 
 위의 방식대로 흘러가는 코딩을 했다. 역시 이중 반복문으로 인해 처리해야 할 데이터의 수가 많아지면 `TIMEOUT ERROR`가 발생하였다.
 
-## 두번째 - 100점
+## 두번째 - 100점(다른사람 풀이)
 >시간 복잡도 : O(N+*M)
 
 {% highlight c linenos %}

@@ -2,7 +2,7 @@
 title:  "[코딩도장] Spiral Array C#문제풀이" 
 
 categories:
-  - Study
+  - 코딩도장
 tags:
   - [코딩도장, C#]
  
