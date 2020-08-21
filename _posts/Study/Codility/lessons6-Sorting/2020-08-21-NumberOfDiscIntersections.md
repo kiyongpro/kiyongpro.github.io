@@ -120,11 +120,13 @@ int solution(int A[], int N) {
 {% endhighlight %}
 
 ### 36 ~ 37Line
+---
 원의 크기가 0 ~ N-1 범위를 벗어 나는걸 방지하기 위한 부분   
 원소의 숫자가 int의 범위를 벗어나는 걸 방지하기 위해서 사용했다.
 
 ### 43Line
-1. s[0] <= e[0]  c = 1   
+---
+- s[0] <= e[0]  c = 1   
 ![1](https://user-images.githubusercontent.com/33146320/90874198-595f1280-e3da-11ea-8507-9ff7c48c4a44.png){: width="300" height="150"}
 
 <br>
@@ -134,7 +136,7 @@ int solution(int A[], int N) {
 
 <br>
 
-- s[2,3] <= e[0]>  c = 4   
+- s[2,3] <= e[0]  c = 4   
 ![3](https://user-images.githubusercontent.com/33146320/90874200-5a903f80-e3da-11ea-8146-575445796880.png){: width="300" height="150"}
 
 <br>
