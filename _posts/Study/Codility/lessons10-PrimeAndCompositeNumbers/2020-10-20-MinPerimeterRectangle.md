@@ -1,5 +1,5 @@
 ---
-title:  "[Codility] Lesson10. Prime And Composite Numbers- MinPerimeterRectangle C언어 풀이" 
+title:  "[Codility] Lesson10. Prime And Composite Numbers-MinPerimeterRectangle C언어 풀이" 
 
 categories:
   - Codility
